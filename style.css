@@ -1,0 +1,169 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+    /* 1rem = 10px  as usually 1rem = 16px */
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(46,51,80);
+    display: grid;
+    place-items: center;
+}
+
+.wrapper{
+    width: 60rem;
+    aspect-ratio: 1;
+    /*background-color: #fff;   */ 
+    display: grid;
+    place-items: center;
+    perspective: 100rem;
+    /* 3D environment */
+    perspective-origin: 76% 27%;
+    /* rotate the perspective of view such that all 
+    3 circles are visble */
+}
+
+.circle-1, .circle-2, .circle-3 {
+    width: 40rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    border: 0.3rem dashed rgb(35, 244, 227);
+    /* Initially all 3 circles are placed on 
+    top of each other so it needs to be rotated seperately*/
+    transform-style: preserve-3d;
+    /* So that the same 3d environment is applied to 
+    all 3 balls under the circle */
+} 
+
+.circle-1{
+    transform: rotateY(70deg) rotateX(40deg);
+    animation: circle-1-Anim 2s -1s infinite linear; 
+    /*-ve value will miss the first sec and will directly
+     move from the second sec*/
+}
+
+@keyframes circle-1-Anim{
+    0%{
+        transform: rotateY(70deg) rotateX(40deg);
+    }
+    100%{
+        transform: rotateY(70deg) rotateX(40deg) rotateZ(360deg) ;
+        /* It is the movement of the circle and 
+        the ball is dependent on the circle*/
+    }
+    
+}
+
+.circle-2{
+    transform: rotateY(70deg) rotateX(-40deg);
+    animation: circle-2-Anim 2s infinite linear; 
+}
+
+@keyframes circle-2-Anim{
+    0%{
+        transform: rotateY(70deg) rotateX(-40deg);
+    }
+    100%{
+        transform: rotateY(70deg) rotateX(-40deg) rotateZ(360deg) ;
+        /* It is the movement of the circle and 
+        the ball is dependent on the circle*/
+    }
+    
+}
+
+.circle-3{
+    transform: rotateY(180deg) rotateX(90deg);
+    animation: circle-3-Anim 2s infinite linear; 
+}
+
+@keyframes circle-3-Anim{
+    0%{
+        transform: rotateY(180deg) rotateX(90deg);
+    }
+    100%{
+        transform: rotateY(180deg) rotateX(90deg) rotateZ(360deg) ;
+        /* It is the movement of the circle and 
+        the ball is dependent on the circle*/
+    }
+    
+}
+
+.circle-3::before{
+    /* This is the content before the actual content element execute this*/
+   content: "";
+   width: 12rem;
+   aspect-ratio: 1;
+   background-image: radial-gradient(circle, #fff, #73e0ea);
+   position: absolute;
+   border-radius: 50%;
+   /*left:40%;
+   top:50%;
+   transform: rotateY(90deg) rotateX(90deg); */
+   left: 50%;
+   top:50%;
+   transform: translate(-50%,-50%) rotateX(90deg);
+   /*translation distances along the X and Y axes in 2D */
+   animation: main-circle-before-anim 2s infinite linear;
+}
+
+@keyframes main-circle-before-anim {
+    0%{
+        transform: translate(-50%,-50%) rotateX(90deg);
+    }
+    100%{
+        transform: translate(-50%,-50%) rotateX(90deg) rotateY(-360deg);
+    }
+}
+
+.ball-1, .ball-2, .ball-3{
+    width: 6rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-image: radial-gradient(circle, #93b2de , #b992d7);
+    position: absolute;
+    /*top:3.6rem;
+    left:0.6;*/
+    top: -3rem;
+    left: calc(50% - 3rem);
+    
+}
+
+.ball-1, .ball-2 {
+    transform: rotateY(-90deg);
+   animation: ball-1-2-anim 2s infinite linear;
+}
+
+@keyframes ball-1-2-anim {
+    0% {
+     transform: rotateY(-90deg);
+    }
+    100% {
+        transform: rotateY(-90deg) rotateX(-360deg);
+       }
+    
+}
+
+.ball-3{
+    transform: rotateY(90deg) rotateX(90deg);
+    animation: ball-3-anim 2s infinite linear; 
+}
+
+@keyframes ball-3-anim {
+    0% {
+     transform: rotateY(90deg) rotateX(90deg);
+    }
+    100% {
+    transform: rotateY(90deg) rotateX(450deg);
+    /* As already rotated by 90 so X is 360+90 = 450 degree */
+
+    }
+    
+}
